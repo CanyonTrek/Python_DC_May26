@@ -6,6 +6,7 @@
 """ 
     DocString
 """
+import sys
 movies = { 'presanna': ['goodfellas', 'bronx take', 'godfather'],
            'devin': ['the raid', 'the prestige', 'catch me'],
            'bryan': ['power rangers', 'lone ranger', 'texas ranger'],
@@ -17,8 +18,9 @@ fh_out = open(r"f:\labs\projects\Python_DC_May26\movies.txt", mode="wt")
 
 # Iterate through the dict keys and write Names+MovieList to file
 for name in movies.keys():
-    print(f"{name}: {movies[name]}", end="\n")
-    fh_out.write(f"{name}: {movies[name]}\n")
+    print(f"{name}: {movies[name]}", end="\n", file=sys.stdout)
+    print(f"{name}: {movies[name]}", end="\n", file=fh_out)
+    # fh_out.write(f"{name}: {movies[name]}\n")
 
 # fh_out.flush()
 fh_out.close() # Flush buffers and close file handle
