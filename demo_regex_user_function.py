@@ -6,6 +6,7 @@
 """
     DocString
 """
+import sys
 import re
 from re import search
 
@@ -13,16 +14,36 @@ from re import search
 # and default values
 def search_pattern(pattern=r"^([A-Z]).*\1$", file=r"f:\labs\words"):
     lines = 0
-    fh_in = open(file, mode="rt")
+    try:
+        fh_in = open(file, mode="rt")
+    except FileNotFoundError as err:
+        print(f"Error: {err.args[0]}, Msg: {err.args[1]}, {err.filename}", file=sys.stderr)
+        sys.exit(1)
+    except PermissionError as err:
+        print(f"Error: {err.args[0]}, Msg: {err.args[1]}, {err.filename}", file=sys.stderr)
+        sys.exit(2)
+    except Exception as err:
+        print(f"Other error occurred: {err.args}", file=sys.stderr)
+        sys.exit(3)
+    else:
+        # Executes when try block SUCCEEDS
+        for line in fh_in:
+            m = re.search(pattern, line)
+            if m:
+                lines += 1
+                print(line, end="")
+        fh_in.close()
+    finally:
+        print(f"And now for something completely different..")
 
-    for line in fh_in:
-        m = re.search(pattern, line)
-        if m:
-            lines += 1
-            print(line, end="")
-    fh_in.close()
     return lines
 
-search_pattern()
-num_lines = search_pattern(r"^.{19}$", r"f:\labs\words")
-print(f"{num_lines} lines matched")
+def main():
+    search_pattern()
+    num_lines = search_pattern(r"^.{19}$", r"f:\labs\words")
+    print(f"{num_lines} lines matched")
+    return None
+
+if __name__ == "__main__":
+    main()
+    sys.exit(0)
