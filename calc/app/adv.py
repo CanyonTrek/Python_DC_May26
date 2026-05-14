@@ -20,10 +20,17 @@ def sqrt(x):
     """ Return Square Root of x as a float """
     return float(x**0.5)
 
-print("---------- ADV Calc Examples ----------")
-print(f"8 ** 7 = {power(8, 7)}")
-print(f"80 % 70 = {mod(80, 70)}")
-print(f"\N{square root}27= {sqrt(27)}")
-print("---------------------------------------")
+def main():
+    print("---------- ADV Calc Examples ----------")
+    print(f"8 ** 7 = {power(8, 7)}")
+    print(f"80 % 70 = {mod(80, 70)}")
+    print(f"\N{square root}27= {sqrt(27)}")
+    print("---------------------------------------")
+    return None
 
-sys.exit(0)
+# Namespace Trick
+if __name__ == "__main__":
+    # Execute ONLY if ran directly as a program
+    # Ignore if imported as a module
+    main()
+    sys.exit(0)
